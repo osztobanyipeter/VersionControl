@@ -10,11 +10,21 @@ using System.Windows.Forms;
 
 namespace _5._4
 {
+    using Excel = Microsoft.Office.Interop.Excel;
+    using System.Reflection;
     public partial class Form1 : Form
     {
+        RealEstateEntities context = new RealEstateEntities();
+        List<Flat> Flats;
+
         public Form1()
         {
             InitializeComponent();
+            LoadData();
+        }
+        private void LoadData()
+        {
+            Flats = context.Flats.ToList();
         }
     }
 }
