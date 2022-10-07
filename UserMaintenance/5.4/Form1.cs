@@ -97,7 +97,15 @@ namespace _5._4
             GetCell(1 + values.GetLength(0), values.GetLength(1))).Value2 = "=1000000*H2/G2";
 
             Excel.Range headerRange = xlSheet.get_Range(GetCell(1, 1), GetCell(1, headers.Length));
+            Excel.Range elsosor = xlSheet.get_Range(GetCell(2, 1), GetCell(counter, 1));
+            Excel.Range teljes = xlSheet.get_Range(GetCell(1, 1), GetCell(counter, headers.Length));
+            Excel.Range utolso = xlSheet.get_Range(GetCell(2, headers.Length), GetCell(counter, headers.Length));
+            elsosor.Interior.Color = Color.LightYellow;
+            utolso.Interior.Color = Color.LightGreen;
+            elsosor.Font.Bold = true;
             headerRange.Font.Bold = true;
+            teljes.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+            teljes.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             headerRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
             headerRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             headerRange.EntireColumn.AutoFit();
