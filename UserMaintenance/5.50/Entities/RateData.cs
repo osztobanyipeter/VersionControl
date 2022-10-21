@@ -11,5 +11,6 @@ namespace _5._50.Entities
         public DateTime Date { get; set; }
         public string Currency { get; set; }   
         public decimal Value { get; set; }
+
     }
 }
