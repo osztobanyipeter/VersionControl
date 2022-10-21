@@ -17,17 +17,15 @@ namespace _5._50
     public partial class Form1 : Form
     {
         BindingList<RateData> Rates = new BindingList<RateData>();
+        BindingList<string> Currencies = new BindingList<string>();
+        
         public Form1()
         {
             InitializeComponent();
-            Harmadik();
-        }
-        public void Harmadik()
-        {
+
             RefreshData();
         }
-
-        private void RefreshData()
+          private void RefreshData()
         {
             Rates.Clear();
             var mnbService = new MNBArfolyamServiceSoapClient();
@@ -35,13 +33,13 @@ namespace _5._50
             var request = new GetExchangeRatesRequestBody()
             {
                 currencyNames = "EUR",
-                startDate = Convert.ToString(dateTimePicker1),
-                endDate = Convert.ToString(dateTimePicker2)
+                startDate = "2020-01-01",
+                endDate = "2020-06-30"
             };
             var response = mnbService.GetExchangeRates(request);
             var result = response.GetExchangeRatesResult;
 
-            dataGridView1.DataSource = Rates.ToList();
+            
 
 
             var xml = new XmlDocument();
@@ -54,8 +52,13 @@ namespace _5._50
 
                 rate.Date = DateTime.Parse(element.GetAttribute("date"));
 
+                string currency;
 
                 var childElement = (XmlElement)element.ChildNodes[0];
+                if (childElement == null)
+                    continue;
+                currency = childElement.InnerText;
+                Currencies.Add(currency);
                 rate.Currency = childElement.GetAttribute("curr");
 
 
@@ -82,8 +85,9 @@ namespace _5._50
             chartArea.AxisY.MajorGrid.Enabled = false;
             chartArea.AxisY.IsStartedFromZero = false;
 
-
-        }
+            dataGridView1.DataSource = Rates.ToList();
+            comboBox1.DataSource = Currencies.ToList();
+          }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
