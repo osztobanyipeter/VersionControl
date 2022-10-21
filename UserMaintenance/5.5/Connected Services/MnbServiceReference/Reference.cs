@@ -945,5 +945,10 @@ namespace _5._5.MnbServiceReference {
             inValue.GetInfo = GetInfo;
             return ((_5._5.MnbServiceReference.MNBArfolyamServiceSoap)(this)).GetInfoAsync(inValue);
         }
+
+        internal object GetExchangeRates(GetExchangeRatesRequestBody request)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
