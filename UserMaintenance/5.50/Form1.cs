@@ -1,4 +1,5 @@
-﻿using _5._50.MnbServiceReference;
+﻿using _5._50.Entities;
+using _5._50.MnbServiceReference;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +14,7 @@ namespace _5._50
 {
     public partial class Form1 : Form
     {
+        BindingList<RateData> Rates = new BindingList<RateData>();
         public Form1()
         {
             InitializeComponent();
@@ -30,7 +32,11 @@ namespace _5._50
             };
             var response = mnbService.GetExchangeRates(request);
             var result = response.GetExchangeRatesResult;
+
+            dataGridView1.DataSource = Rates.ToList();
+
         }
+        
 
     }
 }
