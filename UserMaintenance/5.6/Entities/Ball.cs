@@ -15,10 +15,6 @@ namespace _5._6.Entities
         {
             g.FillEllipse(new SolidBrush(Color.Blue), 0, 0, Width, Height);
         }
-        public void MoveBall()
-        {
-            Left += 1;
-        }
 
     }
 }
