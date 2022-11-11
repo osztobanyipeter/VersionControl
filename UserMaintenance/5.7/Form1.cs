@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,9 @@ namespace _5._7
         PortfolioEntities context = new PortfolioEntities();
         List<Tick> Ticks;
         List<PortfolioItem> Portfolio = new List<PortfolioItem>();
-        
+        List<decimal> Nyereségek = new List<decimal>();
+        List<decimal> nyereségekRendezve;
+
         public Form1()
         {
             InitializeComponent();
@@ -31,7 +34,7 @@ namespace _5._7
             Portfolio.Add(new PortfolioItem() { Index = "ELMU", Volume = 10 });
 
             dataGridView2.DataSource = Portfolio;
-            List<decimal> Nyereségek = new List<decimal>();
+            
             int intervalum = 30;
             DateTime kezdőDátum = (from x in Ticks select x.TradingDay).Min();
             DateTime záróDátum = new DateTime(2016, 12, 30);
@@ -44,7 +47,7 @@ namespace _5._7
                 Console.WriteLine(i + " " + ny);
             }
 
-            var nyereségekRendezve = (from x in Nyereségek
+            nyereségekRendezve = (from x in Nyereségek
                                       orderby x
                                       select x)
                                         .ToList();
@@ -64,5 +67,30 @@ namespace _5._7
             }
             return value;
             }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.DefaultExt = "txt";
+            sfd.AddExtension = true;
+
+            if (sfd.ShowDialog() != DialogResult.OK) return;
+            StreamWriter sw = new StreamWriter(sfd.FileName, false, Encoding.UTF8);
+            int i = 0;
+            sw.Write("időszak");
+            sw.Write(";");
+            sw.Write("Nyereség");
+            sw.WriteLine();
+
+            foreach (var s in nyereségekRendezve)
+            {
+                i++;
+                sw.Write(i);
+                sw.Write(";");
+                sw.Write(s);
+                sw.WriteLine();
+            }
+            sw.Close();
+        }
     }
 }
