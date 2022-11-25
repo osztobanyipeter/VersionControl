@@ -34,11 +34,11 @@ namespace UnitTestExample.Test
         }
         [
             Test,
-            TestCase("Abc"),
-            TestCase("ABCD1234"),
-            TestCase("abcd1234"),
-            TestCase("Ab1@"),
-            TestCase("Abcd1234@")
+            TestCase("Abc", false),
+            TestCase("ABCD1234", false),
+            TestCase("abcd1234", false),
+            TestCase("Ab1@", false),
+            TestCase("Abcd1234@", true)
         ]
         public void TestValidatePassword(string password, bool expectedResult)
         {
