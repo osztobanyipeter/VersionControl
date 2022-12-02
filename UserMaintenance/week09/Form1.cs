@@ -141,5 +141,6 @@ namespace week09
 
             return deathProbabilities;
         }
+
     }
 }
